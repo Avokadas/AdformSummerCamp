@@ -80,7 +80,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
             rows[i].children[j].style.backgroundColor = "black";
         }
     shapeArr[Math.floor(Math.random() * shapeArr.length)]();
-    console.log(x);
+
+    var c;
+    console.log('w');
 });
 
 
