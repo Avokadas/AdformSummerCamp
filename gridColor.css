@@ -1,0 +1,17 @@
+.e{
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    margin: 5px;
+}
+
+.row{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.spawn{
+    background-color: gray;
+}
