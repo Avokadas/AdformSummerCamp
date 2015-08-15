@@ -1,5 +1,7 @@
 var lineLength = 10;
-
+var shapeState = 0;
+var speed = 1000;
+var x,y;
 function changeDivClass(x) {
     //d3.select(d3.select(".tetris").selectAll("div")[0][x]).attr("class", "colored");
     d3.select(d3.selectAll(".spawn")[0][x]).attr("style", "background-color:red");
@@ -26,28 +28,34 @@ function add3Bot() {
 
 var shapeArr = [
     function () {
+        x=Math.floor(lineLength / 2) + 3 * lineLength + 1;
         add3Bot();
         changeDivClass(Math.floor(lineLength / 2) + 3 * lineLength + 1);
     },
-    function () {
+    function (widthcoordinate) {
+        x=Math.floor(lineLength / 2) + 3 * lineLength - 1;
         add3Bot();
         changeDivClass(Math.floor(lineLength / 2) + 3 * lineLength - 1);
     },
-    function () {
+    function (widthcoordinate) {
+        x=Math.floor(lineLength / 2) + 3 * lineLength;
         changeDivClass(Math.floor(lineLength / 2) + 3 * lineLength);
         changeDivClass(Math.floor(lineLength / 2) + 3 * lineLength - 1);
         changeDivClass(Math.floor(lineLength / 2) + 2 * lineLength);
         changeDivClass(Math.floor(lineLength / 2) + 2 * lineLength - 1);
     },
-    function () {
+    function (widthcoordinate) {
+        x=Math.floor(lineLength / 2);
         changeDivClass(Math.floor(lineLength / 2));
         add3Bot();
     },
-    function () {
+    function (widthcoordinate) {
+        x=Math.floor(lineLength / 2) + 3 * lineLength - 1;
         add3Bot();
         changeDivClass(Math.floor(lineLength / 2) + 2 * lineLength - 1);
     },
-    function () {
+    function (widthcoordinate) {
+        x=Math.floor(lineLength / 2) + 3 * lineLength;
         changeDivClass(Math.floor(lineLength / 2) + 3 * lineLength);
         changeDivClass(Math.floor(lineLength / 2) + 3 * lineLength + 1);
         changeDivClass(Math.floor(lineLength / 2) + 2 * lineLength);
@@ -55,7 +63,8 @@ var shapeArr = [
     },
 
 
-    function () {
+    function (widthcoordinate) {
+        x=Math.floor(lineLength / 2) + 3 * lineLength;
         changeDivClass(Math.floor(lineLength / 2) + 3 * lineLength);
         changeDivClass(Math.floor(lineLength / 2) + 3 * lineLength - 1);
         changeDivClass(Math.floor(lineLength / 2) + 2 * lineLength);
@@ -71,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             rows[i].children[j].style.backgroundColor = "black";
         }
     shapeArr[Math.floor(Math.random() * shapeArr.length)]();
+    console.log(x);
 });
 
 
@@ -92,7 +102,7 @@ function bringBlocksDownByOne() {
         }
     }
     if (lai == true) {
-        for (var i = rows.length - 1; i >= 0; i--)
+        for (i = rows.length - 1; i >= 0; i--)
             for (j = 0; j < rows[i].childElementCount; j++)
                 if (rows[i].children[j].style.backgroundColor == "red")
                     rows[i].children[j].style.backgroundColor = "green";
@@ -100,8 +110,12 @@ function bringBlocksDownByOne() {
     }
 }
 
+function rotateShape(){
+    //state=(state+1)%4;
 
-var speed = 1000;
+
+}
+
 
 
 document.addEventListener('keydown', function (event) {
@@ -118,7 +132,6 @@ document.addEventListener('keydup', function (event) {
 
 function callback() {
     bringBlocksDownByOne();
-
     setTimeout(callback, speed)
 }
 
