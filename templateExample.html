@@ -8,14 +8,12 @@
     <script>
         window.onload = initPage;
         function initPage() {
-            var exampleValues = {},
-                    parsedTemplate = "",
-                    templateText = $('#profileTemplate').html(),
+            var  parsedTemplate = "",
+                    demoTemplate = _.template($('#profileTemplate').html());
 
-                    demoTemplate = _.template(templateText);
-            var data = {site:"mysite",name:"john",age:25};
-
-            $.ajax({url: "data/gamedata.json", async: false, dataType: "json", success: function(json) {exampleValues = json;}});
+            var exampleValues={
+                "score": "1999999"
+            }
 
             parsedTemplate = demoTemplate(exampleValues);
             $("#profileBlock").html(parsedTemplate);
