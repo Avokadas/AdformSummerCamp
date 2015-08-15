@@ -5,303 +5,306 @@
     <title></title>
     <link rel="stylesheet" type="text/css" href="gridColor.css">
     <script type="text/javascript" src="coloringScript.js"></script>
+    <script src="d3/3.5.5/js/d3.min.js"></script>
+
+
 </head>
 <body>
-    <div class="tetris">
-        <div class="spawningSpace">
-            <div class="row">
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn i"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-            </div>
-            <div class="row">
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn i l "></div>
-                <div class="e spawn j"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-            </div>
-            <div class="row">
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn z"></div>
-                <div class="e spawn o i z l"></div>
-                <div class="e spawn o t s j"></div>
-                <div class="e spawn s"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-            </div>
-            <div class="row">
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn o i t s z j l"></div>
-                <div class="e spawn o t s z j l"></div>
-                <div class="e spawn t"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-                <div class="e spawn"></div>
-            </div>
+<div class="tetris">
+    <div class="spawningSpace">
+        <div class="row">
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
         </div>
-
-        <div class="playingSpace">
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
-            <div class="row">
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-                <div class="e"></div>
-            </div>
+        <div class="row">
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
         </div>
-
+        <div class="row">
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+        </div>
+        <div class="row">
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+            <div class="e spawn"></div>
+        </div>
     </div>
+
+    <div class="playingSpace">
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+        <div class="row">
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+            <div class="e"></div>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

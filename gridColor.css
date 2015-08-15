@@ -5,6 +5,11 @@
     margin: 2px;
     border-radius: 10%;
 }
+.spawn{
+    background-color: gray;
+}
+
+
 
 .row{
     width: 100%;
@@ -13,6 +18,3 @@
     flex-direction: row;
 }
 
-.spawn{
-    background-color: gray;
-}
