@@ -7,6 +7,9 @@ var y=0;
 
 function startWithCoordinate(shape, row, column) {
     var size = Math.sqrt(shape.length);
+	if (size > lineLength - column){
+		column = lineLength - size;
+	}
     for (i = 0; i < shape.length; i++) {
         if (shape[i] == 1) {
             changeDivClass((row + Math.floor(i / size)) * lineLength + column + (i % size));
