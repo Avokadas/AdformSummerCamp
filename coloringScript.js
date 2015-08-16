@@ -8,7 +8,7 @@ var y = 0;
 var lines = 0;
 var score = 0;
 var speedLvl = 1;
-
+var isChanged = false;
 var holdShape = [0, 0, 1, 0,
     0, 0, 1, 0,
     0, 0, 1, 0,
@@ -265,6 +265,7 @@ function bringBlocksDownByOne() {
                     if (rows[i].children[j].style.backgroundColor == "red") {
 
                         rows[i].children[j].style.backgroundColor = "green";
+						isChanged = false;
                         x = 0;
                         y = 0;
 
@@ -289,6 +290,7 @@ function bringBlocksDownByOne() {
             for (j = 0; j < rows[i].childElementCount; j++)
                 if (rows[i].children[j].style.backgroundColor == "red")
                     rows[i].children[j].style.backgroundColor = "green";
+				isChanged = false;
         lai = false;
         x = 0;
         y = 0;
@@ -415,8 +417,9 @@ function callback() {
     document.onkeydown = function (e) {
         switch (e.keyCode) {
             case 13:
-            {
-
+            if (isChanged) break;
+			{
+				isChanged = true;
                 var tempSelection = d3.selectAll(".e")[0];
                 var counter = 0;
                 for (i = 0; i < shapeArray[shapeIndex][shapeState].length; i++) {
@@ -429,7 +432,7 @@ function callback() {
                         }
                     }
                 }
-                debugger;
+                //debugger;
                 if (counter == 16) {
                     tempFigure = shapeArray[shapeIndex][shapeState];
                     tempFigureState = shapeState;
