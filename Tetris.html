@@ -9,7 +9,19 @@
 <head>
 <title>Tetris</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js "></script>
+	<script>
+		window.onload = initPage;
+		function initPage() {
+			var compiled = _.template("<%= name %>");
+			$("#sscore").html(compiled({name : '999'}));
+			var compiled = _.template("<%= name1 %>");
+			$("#sline").html(compiled({name1 : '998'}));
+			var compiled = _.template("<%= name2 %>");
+			$("#sspeed").html(compiled({name2 : '99'}));
+		}
+	</script>
 	<link href='http://fonts.googleapis.com/css?family=VT323' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -33,16 +45,17 @@
 		<div class="side">
 			<label for="lnext">Next:</label>
 			<div class="hold">
-			</div>
+			</div
 			<p></p>
 			<label for="lline">Line</label>
-			<span name="sline">111</span>
-			<br></br>
+			<div id="sline">
+			</div>
 			<label for="lscore">Score</label>
-			<span name="sscore">222</span>
-			<br></br>
+			<div id="sscore">
+			</div>
 			<label for="lspeed">Speed</label>
-			<span name="sspeed">333</span>
+			<div id="sspeed">
+			</divn>
 		</div>
 	</div>
 </div>

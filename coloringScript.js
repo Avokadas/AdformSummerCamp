@@ -200,11 +200,16 @@ function deleteLine() {
     }
 }
 
+
+
+
+
+
 function bringBlocksDownByOne() {
-    y += 1;
-    deleteLine();
-    var rows = document.getElementsByClassName("row");
-    var lai = false;
+        y += 1;
+        deleteLine();
+        var rows = document.getElementsByClassName("row");
+        var lai = false;
     var temp = 0;
     for (var i = rows.length - 1; i >= 0; i--)
         for (j = 0; j < rows[i].childElementCount; j++)
@@ -234,10 +239,12 @@ function bringBlocksDownByOne() {
             for (j = 0; j < rows[i].childElementCount; j++)
                 if (i > 0)
                     if (rows[i].children[j].style.backgroundColor == "red") {
+                        shapeIndex = Math.floor(Math.random() * shapeArray.length);
                         rows[i].children[j].style.backgroundColor = "green";
                         x = 0;
                         y = 0;
-                        shapeIndex = Math.floor(Math.random() * shapeArray.length);
+
+                        console.log(shapeIndex);
                         startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
                         shapeState = 0;
                     }
@@ -273,6 +280,7 @@ function bringBlocksToLeftByOne() {
             if (i > 0) {
                 if (rows[i].children[j].style.backgroundColor == "red" && j == 0)return false;
                 if (rows[i].children[j + 1].style.backgroundColor == "red") {
+                    if (rows[i].children[j].style.backgroundColor == "green")return false;
                     rows[i].children[j].style.backgroundColor = "red";
                     rows[i].children[j + 1].style.backgroundColor = "black";
                 }
@@ -294,6 +302,7 @@ function bringBlocksToRightByOne() {
             if (i > 0) {
                 if (rows[i].children[j].style.backgroundColor == "red" && j == 9)return false;
                 if (rows[i].children[j - 1].style.backgroundColor == "red") {
+                    if (rows[i].children[j].style.backgroundColor == "green")return false;
                     rows[i].children[j].style.backgroundColor = "red";
                     rows[i].children[j - 1].style.backgroundColor = "black";
                 }
@@ -331,8 +340,9 @@ document.addEventListener('keyup', function (event) {
 
 document.addEventListener('keydown', function (event) {
     if (event.keyCode == 38) {
-
+		startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
         shapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
+
 
 
         var rows = document.getElementsByClassName("row");
@@ -351,6 +361,10 @@ document.addEventListener('keydown', function (event) {
                 }
             }
         }
+
+		startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
+		console.log(shapeArray[shapeIndex][shapeState]);
+
 
     }
 });
