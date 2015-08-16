@@ -359,15 +359,20 @@ function bringBlocksToRightByOne() {
 
 function GameEnd(){
     var rows = document.getElementsByClassName("row");
+    var temp=false;
 
-    for(var i = 0; i < 4; i++)
-        for (var j = 0; j < rows[1].childElementCount; j++) {
-            if (rows[i].children[j].style.backgroundColor == "green"){
-                speed = 9999999;
-                alert("you lose !!!");
+        for(var i = 0; i < 4; i++)
+            for (var j = 0; j < rows[1].childElementCount; j++) {
+                if (rows[i].children[j].style.backgroundColor == "green"){
+                    speed = 9999999;
+                    temp=true;
+                }
+
             }
-
-        }
+    if(temp){
+        alert('you lose!');
+    }
+    temp=false;
 }
 
 document.addEventListener('keydown', function (event) {
@@ -425,10 +430,12 @@ function callback() {
                 speed = 40;
                 break;
         }
-        GameEnd();
+
 
 
     };
+
+    GameEnd();
 
     bringBlocksDownByOne();
 
