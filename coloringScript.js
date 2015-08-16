@@ -9,6 +9,15 @@ var lines = 0;
 var score = 0;
 var speedLvl = 1;
 
+var holdShape = [0, 0, 1, 0,
+    0, 0, 1, 0,
+    0, 0, 1, 0,
+    0, 0, 1, 0];
+var holdShapeState = 0;
+var holdShapeIndex = 4;
+var tempFigure;
+var tempFigureState;
+var tempFigureIndex;
 
 
 function startWithCoordinate(shape, row, column, attribute) {
@@ -176,18 +185,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
     shapeIndex = Math.floor(Math.random() * shapeArray.length);
-    if(typeof nextShapeIndex !=='undefined'){
-        shapeIndex=nextShapeIndex;
+    if (typeof nextShapeIndex !== 'undefined') {
+        shapeIndex = nextShapeIndex;
     }
 
     shapeState = 0;
     startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
-    nextShapeIndex=Math.floor(Math.random() * shapeArray.length);
-    for(var i=0;i<shapeArray[nextShapeIndex][0].length;i++){
-        if(shapeArray[nextShapeIndex][0][i]==1){
+    nextShapeIndex = Math.floor(Math.random() * shapeArray.length);
+    for (var i = 0; i < shapeArray[nextShapeIndex][0].length; i++) {
+        if (shapeArray[nextShapeIndex][0][i] == 1) {
             d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:purple");
         }
-        else{
+        else {
             d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:blue");
         }
 
@@ -223,6 +232,7 @@ function deleteLine() {
 
 function bringBlocksDownByOne() {
     y += 1;
+
     var rows = document.getElementsByClassName("row");
     var lai = false;
     var temp = 0;
@@ -257,17 +267,18 @@ function bringBlocksDownByOne() {
                         rows[i].children[j].style.backgroundColor = "green";
                         x = 0;
                         y = 0;
+
                         shapeState = 0;
                     }
         deleteLine();
         shapeIndex = nextShapeIndex;
         startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
-        nextShapeIndex=Math.floor(Math.random() * shapeArray.length);
-        for(var i=0;i<shapeArray[nextShapeIndex][0].length;i++){
-            if(shapeArray[nextShapeIndex][0][i]==1){
+        nextShapeIndex = Math.floor(Math.random() * shapeArray.length);
+        for (var i = 0; i < shapeArray[nextShapeIndex][0].length; i++) {
+            if (shapeArray[nextShapeIndex][0][i] == 1) {
                 d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:purple");
             }
-            else{
+            else {
                 d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:blue");
             }
         }
@@ -285,12 +296,12 @@ function bringBlocksDownByOne() {
         shapeIndex = nextShapeIndex;
         startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
         shapeState = 0;
-        nextShapeIndex=Math.floor(Math.random() * shapeArray.length);
-        for(var i=0;i<shapeArray[nextShapeIndex][0].length;i++){
-            if(shapeArray[nextShapeIndex][0][i]==1){
+        nextShapeIndex = Math.floor(Math.random() * shapeArray.length);
+        for (var i = 0; i < shapeArray[nextShapeIndex][0].length; i++) {
+            if (shapeArray[nextShapeIndex][0][i] == 1) {
                 d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:purple");
             }
-            else{
+            else {
                 d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:blue");
             }
 
@@ -305,7 +316,10 @@ function bringBlocksToLeftByOne() {
     var rows = document.getElementsByClassName("row");
 
     for (var i = 0; i < rows.length - 1; i++) {
-        if (rows[i].children[0].style.backgroundColor == "red")return false;
+        if (rows[i].children[0].style.backgroundColor == "red") {
+            x += 1;
+            return false;
+        }
     }
 
     for (i = rows.length - 1; i >= 0; i--) {
@@ -322,6 +336,7 @@ function bringBlocksToLeftByOne() {
         for (j = 0; j < rows[i].childElementCount - 1; j++) {
             if (i > 0) {
                 if (rows[i].children[j + 1].style.backgroundColor == "red") {
+
                     rows[i].children[j].style.backgroundColor = "red";
                     rows[i].children[j + 1].style.backgroundColor = "black";
                 }
@@ -335,7 +350,10 @@ function bringBlocksToRightByOne() {
     var rows = document.getElementsByClassName("row");
 
     for (var i = 0; i < rows.length; i++) {
-        if (rows[i].children[9].style.backgroundColor == "red")return false;
+        if (rows[i].children[9].style.backgroundColor == "red") {
+            x -= 1;
+            return false;
+        }
     }
 
     for (i = rows.length - 1; i >= 0; i--) {
@@ -343,7 +361,9 @@ function bringBlocksToRightByOne() {
             if (i > 0) {
                 if (rows[i].children[j].style.backgroundColor == "red" && j == 9)return false;
                 if (rows[i].children[j - 1].style.backgroundColor == "red") {
+
                     if (rows[i].children[j].style.backgroundColor == "green")return false;
+
                 }
             }
         }
@@ -357,22 +377,22 @@ function bringBlocksToRightByOne() {
                 }
 }
 
-function GameEnd(){
+function GameEnd() {
     var rows = document.getElementsByClassName("row");
-    var temp=false;
+    var temp = false;
 
-        for(var i = 0; i < 4; i++)
-            for (var j = 0; j < rows[1].childElementCount; j++) {
-                if (rows[i].children[j].style.backgroundColor == "green"){
-                    speed = 9999999;
-                    temp=true;
-                }
-
+    for (var i = 0; i < 4; i++)
+        for (var j = 0; j < rows[1].childElementCount; j++) {
+            if (rows[i].children[j].style.backgroundColor == "green") {
+                speed = 9999999;
+                temp = true;
             }
-    if(temp){
+
+        }
+    if (temp) {
         alert('you lose!');
     }
-    temp=false;
+    temp = false;
 }
 
 document.addEventListener('keydown', function (event) {
@@ -389,38 +409,69 @@ document.addEventListener('keyup', function (event) {
 
 
 function callback() {
-
-    document.onkeydown = function(e) {
+    GameEnd();
+    document.onkeydown = function (e) {
         switch (e.keyCode) {
+            case 13:
+            {
+
+                var tempSelection = d3.selectAll(".e")[0];
+                var counter = 0;
+                for (i = 0; i < shapeArray[shapeIndex][shapeState].length; i++) {
+                    if (!(x < 0 || x > 6)) {
+                        if (shapeArray[shapeIndex][shapeState][i] != 1 && holdShape[i] == 1 && (tempSelection[(y + Math.floor(i / 4)) * lineLength + x + (i % 4)].style.backgroundColor != "black")) {
+                            break;
+                        }
+                        else {
+                            counter += 1;
+                        }
+                    }
+                }
+                debugger;
+                if (counter == 16) {
+                    tempFigure = shapeArray[shapeIndex][shapeState];
+                    tempFigureState = shapeState;
+                    tempFigureIndex = shapeIndex;
+                    startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
+                    startWithCoordinate(holdShapeState, y, x, "background-color:red");
+                    shapeState = holdShapeState;
+                    shapeIndex = holdShapeIndex;
+                    holdShape = tempFigure;
+                    holdShapeState = tempFigureState;
+                    holdShapeIndex = tempFigureIndex;
+
+
+                }
+
+            }
+                break;
             case 37:
                 x -= 1;
                 bringBlocksToLeftByOne();
                 break;
             case 38:
-                startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
-                shapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
 
-
-
-                var rows = document.getElementsByClassName("row");
-
-                for (i = rows.length - 1; i >= 0; i--) {
-
-                    for (j = rows[i].childElementCount - 1; j > 0; j--) {
-                        if (i == x && j == y) {
-
-                            if (rows[y].children[x].style.backgroundColor == "red") {
-                                rows[y ].children[x ].style.backgroundColor = "black";
-                                //startWithCoordinate(shapeArray[0][0], y, x, "background-color:red");
-                            }
-
-                            console.log(shapeArray[shapeIndex][shapeState]);
+            {
+                var tempSelection = d3.selectAll(".e")[0];
+                var counter = 0;
+                var nextShapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
+                for (i = 0; i < shapeArray[shapeIndex][nextShapeState].length; i++) {
+                    if (!(x < 0 || x > 6)) {
+                        if (shapeArray[shapeIndex][shapeState][i] != 1 && shapeArray[shapeIndex][nextShapeState][i] == 1 && (tempSelection[(y + Math.floor(i / 4)) * lineLength + x + (i % 4)].style.backgroundColor != "black")) {
+                            break;
+                        }
+                        else {
+                            counter += 1;
                         }
                     }
                 }
+                if (counter == 16) {
+                    startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
+                    shapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
+                    startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
+                }
+            }
 
-                startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
-                console.log(shapeArray[shapeIndex][shapeState]);
                 break;
             case 39:
                 x += 1;
@@ -432,18 +483,13 @@ function callback() {
         }
 
 
-
     };
 
-    GameEnd();
-
     bringBlocksDownByOne();
-
     updateResults();
 
     setTimeout(callback, speed);
 }
-
 setTimeout(callback, speed);
 
 
