@@ -412,6 +412,7 @@ function callback() {
                 bringBlocksToLeftByOne();
                 break;
             case 38:
+
 {
 		var tempSelection = d3.selectAll(".e")[0];
 		var counter = 0;
@@ -432,6 +433,7 @@ function callback() {
 			startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
 		}
     }
+
                 break;
             case 39:
                 x += 1;
@@ -445,15 +447,12 @@ function callback() {
 
 
     };
+	bringBlocksDownByOne();
 
-
-    bringBlocksDownByOne();
-
-
+  
 
     setTimeout(callback, speed);
 }
-
 setTimeout(callback, speed);
 
 

@@ -20,3 +20,10 @@
     flex-direction: row;
 }
 
+.tetris{
+    background-color: darkslategray;
+}
+
+.game-field{
+    overflow:hidden;
+}
