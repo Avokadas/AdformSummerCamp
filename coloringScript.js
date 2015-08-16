@@ -9,6 +9,7 @@ var score = 0;
 var speedLvl = 1;
 
 
+
 function startWithCoordinate(shape, row, column, attribute) {
     var size = Math.sqrt(shape.length);
     if (size > lineLength - column) {
@@ -325,6 +326,19 @@ function bringBlocksToRightByOne() {
                 }
 }
 
+function GameEnd(){
+    var rows = document.getElementsByClassName("row");
+
+    for(var i = 0; i < 4; i++)
+        for (var j = 0; j < rows[1].childElementCount; j++) {
+            if (rows[i].children[j].style.backgroundColor == "green"){
+                speed = 9999999;
+                alert("you lose !!!");
+            }
+
+        }
+}
+
 document.addEventListener('keydown', function (event) {
     if (event.keyCode == 40) {
         speed = 40;
@@ -380,7 +394,7 @@ function callback() {
                 speed = 40;
                 break;
         }
-
+        GameEnd();
 
 
     };

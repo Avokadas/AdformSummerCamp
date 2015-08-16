@@ -9,7 +9,9 @@
     background-color: gray;
 }
 
-
+.spawn{
+    display: none;
+}
 
 .row{
     width: 100%;
