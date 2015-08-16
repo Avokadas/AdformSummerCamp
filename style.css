@@ -60,3 +60,8 @@ list-style:none;
 	font-size: 24px;
 }
 p{text-align:center;}
+#holdDiv{
+	background-color: blueviolet;
+	background-image: url(http://static.giantbomb.com/uploads/scale_small/5/56735/1280290-question_mark_block_fool_and_opera.gif);
+	background-size: 100% 100%;
+}
