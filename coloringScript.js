@@ -203,11 +203,6 @@ function deleteLine() {
     }
 }
 
-
-
-
-
-
 function bringBlocksDownByOne() {
     y += 1;
     var rows = document.getElementsByClassName("row");
@@ -244,7 +239,6 @@ function bringBlocksDownByOne() {
                         rows[i].children[j].style.backgroundColor = "green";
                         x = 0;
                         y = 0;
-                        console.log(shapeIndex);
                         shapeState = 0;
                     }
         deleteLine();
@@ -367,7 +361,7 @@ function callback() {
 
 
                 var rows = document.getElementsByClassName("row");
-                console.log('aa');
+
                 for (i = rows.length - 1; i >= 0; i--) {
 
                     for (j = rows[i].childElementCount - 1; j > 0; j--) {
@@ -399,10 +393,52 @@ function callback() {
 
     };
 
-
-
     bringBlocksDownByOne();
+    document.onkeydown = function(e) {
+        switch (e.keyCode) {
+            case 37:
+                x -= 1;
+                bringBlocksToLeftByOne();
+                break;
+            case 38:
+                startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
+                shapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
 
+
+
+                var rows = document.getElementsByClassName("row");
+
+                for (i = rows.length - 1; i >= 0; i--) {
+
+                    for (j = rows[i].childElementCount - 1; j > 0; j--) {
+                        if (i == x && j == y) {
+
+                            if (rows[y].children[x].style.backgroundColor == "red") {
+                                rows[y ].children[x ].style.backgroundColor = "black";
+                                //startWithCoordinate(shapeArray[0][0], y, x, "background-color:red");
+                            }
+
+                            console.log(shapeArray[shapeIndex][shapeState]);
+                        }
+                    }
+                }
+
+                startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
+                console.log(shapeArray[shapeIndex][shapeState]);
+                break;
+            case 39:
+                x += 1;
+                bringBlocksToRightByOne();
+                break;
+            case 40:
+                speed = 40;
+                break;
+        }
+        GameEnd();
+
+
+    };
+    updateResults();
 
 
     setTimeout(callback, speed);

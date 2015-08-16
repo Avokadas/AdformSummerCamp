@@ -23,3 +23,7 @@
 .tetris{
     background-color: darkslategray;
 }
+
+.game-field{
+    overflow:hidden;
+}
