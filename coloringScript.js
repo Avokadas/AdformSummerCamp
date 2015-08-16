@@ -341,15 +341,12 @@ document.addEventListener('keydown', function (event) {
 
             for (j = rows[i].childElementCount - 1; j > 0; j--) {
                 if (i == x && j == y) {
-                    for (var k = 0; k < 5; k++) {
-                        for (var l = 0; l < 5; l++) {
-                            if (rows[y + l].children[x + k].style.backgroundColor == "red") {
-                                rows[y + l].children[x + k].style.backgroundColor = "black";
-                                startWithCoordinate(shapeArray[0][0], y, x, "background-color:red");
-                            }
-                        }
 
-                    }
+                            if (rows[y].children[x].style.backgroundColor == "red") {
+                                rows[y ].children[x ].style.backgroundColor = "black";
+                                //startWithCoordinate(shapeArray[0][0], y, x, "background-color:red");
+                            }
+
                     console.log(shapeArray[shapeIndex][shapeState]);
                 }
             }
