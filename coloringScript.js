@@ -19,6 +19,7 @@ var tempFigureState;
 var tempFigureIndex;
 
 
+
 function startWithCoordinate(shape, row, column, attribute) {
     var size = Math.sqrt(shape.length);
     if (size > lineLength - column) {
@@ -186,6 +187,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 });
 
+
 function deleteLine() {
     var rows = document.getElementsByClassName("row");
     var counter;
@@ -205,6 +207,7 @@ function deleteLine() {
             if (lines % 5 == 0)
                 speedLvl++;
             console.log(lines, " ", score, " ", speedLvl);
+            i++;
 
         }
     }
@@ -212,7 +215,7 @@ function deleteLine() {
 
 function bringBlocksDownByOne() {
     y += 1;
-    deleteLine();
+
     var rows = document.getElementsByClassName("row");
     var lai = false;
     var temp = 0;
@@ -221,7 +224,6 @@ function bringBlocksDownByOne() {
             if (i > 0)
                 if ((rows[i - 1].children[j].style.backgroundColor == "red") && ((rows[i].children[j].style.backgroundColor == "black") || (rows[i].children[j].style.backgroundColor == "red"))) {
                     temp++;
-                    //console.log(temp);
                 }
     if (temp == 4) {
         for (var i = rows.length - 1; i >= 0; i--) {
@@ -244,14 +246,16 @@ function bringBlocksDownByOne() {
             for (j = 0; j < rows[i].childElementCount; j++)
                 if (i > 0)
                     if (rows[i].children[j].style.backgroundColor == "red") {
+
                         rows[i].children[j].style.backgroundColor = "green";
                         x = 0;
                         y = 0;
-                        shapeIndex = Math.floor(Math.random() * shapeArray.length);
-                        startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
+
                         shapeState = 0;
                     }
-
+        deleteLine();
+        shapeIndex = Math.floor(Math.random() * shapeArray.length);
+        startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
     }
 
     if (lai == true) {
@@ -262,6 +266,7 @@ function bringBlocksDownByOne() {
         lai = false;
         x = 0;
         y = 0;
+        deleteLine();
         shapeIndex = Math.floor(Math.random() * shapeArray.length);
         startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
         shapeState = 0;
@@ -286,6 +291,16 @@ function bringBlocksToLeftByOne() {
             if (i > 0) {
                 if (rows[i].children[j].style.backgroundColor == "red" && j == 0)return false;
                 if (rows[i].children[j + 1].style.backgroundColor == "red") {
+                    if (rows[i].children[j].style.backgroundColor == "green")return false;
+                }
+            }
+        }
+    }
+    for (i = rows.length - 1; i >= 0; i--) {
+        for (j = 0; j < rows[i].childElementCount - 1; j++) {
+            if (i > 0) {
+                if (rows[i].children[j + 1].style.backgroundColor == "red") {
+
                     rows[i].children[j].style.backgroundColor = "red";
                     rows[i].children[j + 1].style.backgroundColor = "black";
                 }
@@ -310,31 +325,37 @@ function bringBlocksToRightByOne() {
             if (i > 0) {
                 if (rows[i].children[j].style.backgroundColor == "red" && j == 9)return false;
                 if (rows[i].children[j - 1].style.backgroundColor == "red") {
-                    rows[i].children[j].style.backgroundColor = "red";
-                    rows[i].children[j - 1].style.backgroundColor = "black";
+
+                    if (rows[i].children[j].style.backgroundColor == "green")return false;
+
                 }
             }
         }
     }
+    for (i = rows.length - 1; i >= 0; i--)
+        for (j = rows[i].childElementCount - 1; j > 0; j--)
+            if (i > 0)
+                if (rows[i].children[j - 1].style.backgroundColor == "red") {
+                    rows[i].children[j].style.backgroundColor = "red";
+                    rows[i].children[j - 1].style.backgroundColor = "black";
+                }
+}
+
+function GameEnd(){
+    var rows = document.getElementsByClassName("row");
+
+    for(var i = 0; i < 4; i++)
+        for (var j = 0; j < rows[1].childElementCount; j++) {
+            if (rows[i].children[j].style.backgroundColor == "green"){
+                speed = 9999999;
+                alert("you lose !!!");
+            }
+
+        }
 }
 
 document.addEventListener('keydown', function (event) {
-    if (event.keyCode == 37) {
-        x -= 1;
-        bringBlocksToLeftByOne();
-    }
-});
-
-document.addEventListener('keydown', function (event) {
-    if (event.keyCode == 39) {
-        x += 1;
-        bringBlocksToRightByOne();
-    }
-});
-
-document.addEventListener('keydown', function (event) {
     if (event.keyCode == 40) {
-
         speed = 40;
     }
 });
@@ -345,8 +366,53 @@ document.addEventListener('keyup', function (event) {
     }
 });
 
-document.addEventListener('keydown', function (event) {
-    if (event.keyCode == 38) {
+
+
+
+function callback() {
+
+    document.onkeydown = function(e) {
+        switch (e.keyCode) {
+			case 13:
+				{
+		//valgymo ciklas
+		var tempSelection = d3.selectAll(".e")[0];
+		var counter = 0;
+		for (i = 0; i < shapeArray[shapeIndex][shapeState].length; i++) {
+			if (!(x<0 || x>6)){
+				if (shapeArray[shapeIndex][shapeState][i] != 1 && holdShape[i] == 1 && (tempSelection[(y + Math.floor(i / 4)) * lineLength + x + (i % 4)].style.backgroundColor != "black")) {
+					break;
+				}
+				else {
+					counter+=1;		
+				}
+			}
+		}
+		debugger;
+		if (counter == 16){
+			tempFigure=shapeArray[shapeIndex][shapeState];
+			tempFigureState=shapeState;
+			tempFigureIndex=shapeIndex;
+			startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
+			startWithCoordinate(holdShapeState, y, x, "background-color:red");
+			shapeState = holdShapeState;
+			shapeIndex = holdShapeIndex;
+			holdShape = tempFigure;
+			holdShapeState = tempFigureState;
+			holdShapeIndex = tempFigureIndex;
+			
+			
+			
+		}
+		
+	}
+				break;
+            case 37:
+                x -= 1;
+                bringBlocksToLeftByOne();
+                break;
+            case 38:
+{
 		var tempSelection = d3.selectAll(".e")[0];
 		var counter = 0;
 		var nextShapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
@@ -366,52 +432,25 @@ document.addEventListener('keydown', function (event) {
 			startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
 		}
     }
-});
-
-/*template for hold
-document.addEventListener('keydown', function(event){
-	if (event.keyCode == SPACEBAR NUMBER){
-		//valgymo ciklas
-		var tempSelection = d3.selectAll(".e")[0];
-		for (i = 0; i < shapeArray[shapeIndex][shapeState].length; i++) {
-			if (!(x<0 || x>6)){
-				if (shapeArray[shapeIndex][shapeState][i] != 1 && holdShape[i] == 1 && (tempSelection[(y + Math.floor(i / 4)) * lineLength + x + (i % 4)].style.backgroundColor != "black")) {
-					break;
-				}
-				else {
-					counter+=1;		
-				}
-			}
-		}
-		if (counter == 16){
-			tempFigure=shapeArray[shapeIndex][shapeState];
-			tempFigureState=shapeState;
-			tempFigureIndex=shapeIndex;
-			startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
-			startWithCoordinate(holdShapeState, y, x, "background-color:red");
-			shapeState = holdShapeState;
-			shapeIndex = holdShapeIndex;
-			holdShape = tempFigure;
-			holdShapeState = tempFigureState;
-			holdShapeIndex = tempFigureIndex;
-			
-			
-			
-		}
-		
-	}
-});
+                break;
+            case 39:
+                x += 1;
+                bringBlocksToRightByOne();
+                break;
+            case 40:
+                speed = 40;
+                break;
+        }
+        GameEnd();
 
 
+    };
 
 
-
-
-*/
-
-
-function callback() {
     bringBlocksDownByOne();
+
+
+
     setTimeout(callback, speed);
 }
 
