@@ -331,29 +331,13 @@ document.addEventListener('keyup', function (event) {
 
 document.addEventListener('keydown', function (event) {
     if (event.keyCode == 38) {
-
+		startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
         shapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
-
-
-        var rows = document.getElementsByClassName("row");
-        console.log('aa');
-        for (i = rows.length - 1; i >= 0; i--) {
-
-            for (j = rows[i].childElementCount - 1; j > 0; j--) {
-                if (i == x && j == y) {
-                    for (var k = 0; k < 5; k++) {
-                        for (var l = 0; l < 5; l++) {
-                            if (rows[y + l].children[x + k].style.backgroundColor == "red") {
-                                rows[y + l].children[x + k].style.backgroundColor = "black";
-                                //startWithCoordinate(shapeArray[0][0], 0, 0, "background-color:red");
-                            }
-                        }
-
-                    }
-                    console.log(shapeArray[shapeIndex][shapeState]);
-                }
-            }
-        }
+		startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
+		console.log(shapeArray[shapeIndex][shapeState]);
+                
+            
+        
 
     }
 });
@@ -363,7 +347,7 @@ function callback() {
     setTimeout(callback, speed);
 }
 
-//setTimeout(callback, speed);
+setTimeout(callback, speed);
 
 
 
