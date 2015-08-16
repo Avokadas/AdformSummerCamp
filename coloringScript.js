@@ -4,6 +4,9 @@ var shapeIndex;
 var speed = 400;
 var x = 0;
 var y = 0;
+var lines = 0;
+var score = 0;
+var speedLvl = 1;
 
 
 function startWithCoordinate(shape, row, column, attribute) {
@@ -168,10 +171,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
     shapeIndex = Math.floor(Math.random() * shapeArray.length);
-    startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
     shapeState = 0;
-
-    //console.log(x);
+    startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
 
 });
 
@@ -184,12 +185,16 @@ function deleteLine() {
             if (i > 0)
                 if (rows[i].children[j].style.backgroundColor == "green") {
                     counter++;
-                    console.log(counter);
                 }
         if (counter >= rows[i].childElementCount) {
             for (var g = i; g >= 1; g--)
                 for (j = 0; j < rows[g].childElementCount; j++)
                     rows[g].children[j].style.backgroundColor = rows[g - 1].children[j].style.backgroundColor;
+            lines++;
+            score += 100 * speedLvl;
+            if (lines % 5 == 0)
+                speedLvl++;
+            console.log(lines, " ", score, " ", speedLvl);
 
         }
     }
@@ -304,14 +309,12 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
-
 document.addEventListener('keydown', function (event) {
     if (event.keyCode == 39) {
         x += 1;
         bringBlocksToRightByOne();
     }
 });
-
 
 document.addEventListener('keydown', function (event) {
     if (event.keyCode == 40) {
@@ -322,12 +325,9 @@ document.addEventListener('keydown', function (event) {
 
 document.addEventListener('keyup', function (event) {
     if (event.keyCode == 40) {
-        speed = 400;
-
-
+        speed = 400 - (25 * speedLvl);
     }
 });
-
 
 document.addEventListener('keydown', function (event) {
     if (event.keyCode == 38) {
@@ -345,7 +345,7 @@ document.addEventListener('keydown', function (event) {
                         for (var l = 0; l < 5; l++) {
                             if (rows[y + l].children[x + k].style.backgroundColor == "red") {
                                 rows[y + l].children[x + k].style.backgroundColor = "black";
-                                //startWithCoordinate(shapeArray[0][0], 0, 0, "background-color:red");
+                                startWithCoordinate(shapeArray[0][0], y, x, "background-color:red");
                             }
                         }
 
@@ -363,7 +363,7 @@ function callback() {
     setTimeout(callback, speed);
 }
 
-//setTimeout(callback, speed);
+setTimeout(callback, speed);
 
 
 
