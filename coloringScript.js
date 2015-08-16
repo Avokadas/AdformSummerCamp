@@ -268,7 +268,7 @@ function bringBlocksDownByOne() {
 
                         rows[i].children[j].style.backgroundColor = "green";
 						isChanged = false;
-                        x = 0;
+                        x = 3;
                         y = 0;
 
                         shapeState = 0;
@@ -295,7 +295,7 @@ function bringBlocksDownByOne() {
                     rows[i].children[j].style.backgroundColor = "green";
 				isChanged = false;
         lai = false;
-        x = 0;
+        x = 3;
         y = 0;
         deleteLine();
         shapeIndex = nextShapeIndex;
@@ -422,9 +422,6 @@ function callback() {
         switch (e.keyCode) {
             case 13:
 
-
-
-
             if (isChanged) break;
 			{
 				isChanged = true;
@@ -453,8 +450,6 @@ function callback() {
                     holdShape = tempFigure;
                     holdShapeState = tempFigureState;
                     holdShapeIndex = tempFigureIndex;
-
-
                 }
 
             }
