@@ -13,12 +13,12 @@
 .title{
 	color:black;
 	text-align:center;
-	padding:10px;
+	padding:5px;
 	font-size:20px; 
 	font-weight:bold;
 }
 .title img{
-	width:50%;
+	width:40%;
 	height:auto;
 }
 
@@ -32,7 +32,7 @@ list-style:none;
 	margin-left:auto;
 	margin-right:auto;
 	width:440px;
-	height:700px;
+	height:620px;
 	border:1px solid white;
 	border-radius:10px;
 	background-color:rgba(120,120,120,0.8);
