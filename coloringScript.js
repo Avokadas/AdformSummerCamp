@@ -176,6 +176,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 });
 
+
 function deleteLine() {
     var rows = document.getElementsByClassName("row");
     var counter;
@@ -195,6 +196,7 @@ function deleteLine() {
             if (lines % 5 == 0)
                 speedLvl++;
             console.log(lines, " ", score, " ", speedLvl);
+            i++;
 
         }
     }
@@ -206,17 +208,15 @@ function deleteLine() {
 
 
 function bringBlocksDownByOne() {
-        y += 1;
-        deleteLine();
-        var rows = document.getElementsByClassName("row");
-        var lai = false;
+    y += 1;
+    var rows = document.getElementsByClassName("row");
+    var lai = false;
     var temp = 0;
     for (var i = rows.length - 1; i >= 0; i--)
         for (j = 0; j < rows[i].childElementCount; j++)
             if (i > 0)
                 if ((rows[i - 1].children[j].style.backgroundColor == "red") && ((rows[i].children[j].style.backgroundColor == "black") || (rows[i].children[j].style.backgroundColor == "red"))) {
                     temp++;
-                    //console.log(temp);
                 }
     if (temp == 4) {
         for (var i = rows.length - 1; i >= 0; i--) {
@@ -243,15 +243,12 @@ function bringBlocksDownByOne() {
                         rows[i].children[j].style.backgroundColor = "green";
                         x = 0;
                         y = 0;
-
-
-
                         console.log(shapeIndex);
-                        console.log('w');
-                        startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
                         shapeState = 0;
                     }
-
+        deleteLine();
+        shapeIndex = Math.floor(Math.random() * shapeArray.length);
+        startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
     }
 
     if (lai == true) {
@@ -262,6 +259,7 @@ function bringBlocksDownByOne() {
         lai = false;
         x = 0;
         y = 0;
+        deleteLine();
         shapeIndex = Math.floor(Math.random() * shapeArray.length);
         startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
         shapeState = 0;
@@ -328,22 +326,7 @@ function bringBlocksToRightByOne() {
 }
 
 document.addEventListener('keydown', function (event) {
-    if (event.keyCode == 37) {
-        x -= 1;
-        bringBlocksToLeftByOne();
-    }
-});
-
-document.addEventListener('keydown', function (event) {
-    if (event.keyCode == 39) {
-        x += 1;
-        bringBlocksToRightByOne();
-    }
-});
-
-document.addEventListener('keydown', function (event) {
     if (event.keyCode == 40) {
-
         speed = 40;
     }
 });
@@ -354,26 +337,53 @@ document.addEventListener('keyup', function (event) {
     }
 });
 
-document.addEventListener('keydown', function (event) {
-
-});
 
 function callback() {
 
-    e = e || window.event;
+    document.onkeydown = function(e) {
+        switch (e.keyCode) {
+            case 37:
+                x -= 1;
+                bringBlocksToLeftByOne();
+                break;
+            case 38:
+                startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
+                shapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
 
-    if (e.keyCode == '38') {
-        // up arrow
-    }
-    else if (e.keyCode == '40') {
-        // down arrow
-    }
-    else if (e.keyCode == '37') {
-        // left arrow
-    }
-    else if (e.keyCode == '39') {
-        // right arrow
-    }
+
+
+                var rows = document.getElementsByClassName("row");
+                console.log('aa');
+                for (i = rows.length - 1; i >= 0; i--) {
+
+                    for (j = rows[i].childElementCount - 1; j > 0; j--) {
+                        if (i == x && j == y) {
+
+                            if (rows[y].children[x].style.backgroundColor == "red") {
+                                rows[y ].children[x ].style.backgroundColor = "black";
+                                //startWithCoordinate(shapeArray[0][0], y, x, "background-color:red");
+                            }
+
+                            console.log(shapeArray[shapeIndex][shapeState]);
+                        }
+                    }
+                }
+
+                startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
+                console.log(shapeArray[shapeIndex][shapeState]);
+                break;
+            case 39:
+                x += 1;
+                bringBlocksToRightByOne();
+                break;
+            case 40:
+                speed = 40;
+                break;
+        }
+
+
+
+    };
 
 
 
