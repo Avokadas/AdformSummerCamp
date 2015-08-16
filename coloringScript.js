@@ -392,7 +392,7 @@ function GameEnd() {
             if (rows[i].children[j].style.backgroundColor == "green") {
                 speed = 9999999;
 
-				window.location.href = "index.html";
+				window.location.href = "game_over.html";
                 temp = true;
             }
 
