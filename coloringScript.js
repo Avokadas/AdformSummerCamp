@@ -3,7 +3,7 @@ var shapeState;
 var nextShapeIndex;
 var shapeIndex;
 var speed = 400;
-var x = 0;
+var x = 3;
 var y = 0;
 var lines = 0;
 var score = 0;
@@ -388,7 +388,7 @@ function GameEnd() {
         for (var j = 0; j < rows[1].childElementCount; j++) {
             if (rows[i].children[j].style.backgroundColor == "green") {
                 speed = 9999999;
-                alert("you lose !!!");
+
 				window.location.href = "index.html";
                 temp = true;
             }
