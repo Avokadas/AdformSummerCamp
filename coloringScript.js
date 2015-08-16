@@ -8,6 +8,16 @@ var lines = 0;
 var score = 0;
 var speedLvl = 1;
 
+var holdShape = [0,0,1,0,
+				0,0,1,0,
+				0,0,1,0,
+				0,0,1,0];
+var holdShapeState = 0;
+var holdShapeIndex = 4;
+var tempFigure;
+var tempFigureState;
+var tempFigureIndex;
+
 
 function startWithCoordinate(shape, row, column, attribute) {
     var size = Math.sqrt(shape.length);
@@ -200,16 +210,11 @@ function deleteLine() {
     }
 }
 
-
-
-
-
-
 function bringBlocksDownByOne() {
-        y += 1;
-        deleteLine();
-        var rows = document.getElementsByClassName("row");
-        var lai = false;
+    y += 1;
+    deleteLine();
+    var rows = document.getElementsByClassName("row");
+    var lai = false;
     var temp = 0;
     for (var i = rows.length - 1; i >= 0; i--)
         for (j = 0; j < rows[i].childElementCount; j++)
@@ -239,12 +244,10 @@ function bringBlocksDownByOne() {
             for (j = 0; j < rows[i].childElementCount; j++)
                 if (i > 0)
                     if (rows[i].children[j].style.backgroundColor == "red") {
-                        shapeIndex = Math.floor(Math.random() * shapeArray.length);
                         rows[i].children[j].style.backgroundColor = "green";
                         x = 0;
                         y = 0;
-
-                        console.log(shapeIndex);
+                        shapeIndex = Math.floor(Math.random() * shapeArray.length);
                         startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
                         shapeState = 0;
                     }
@@ -272,7 +275,10 @@ function bringBlocksToLeftByOne() {
     var rows = document.getElementsByClassName("row");
 
     for (var i = 0; i < rows.length - 1; i++) {
-        if (rows[i].children[0].style.backgroundColor == "red")return false;
+		if (rows[i].children[0].style.backgroundColor == "red"){
+			x+=1;
+			return false;
+		}
     }
 
     for (i = rows.length - 1; i >= 0; i--) {
@@ -280,7 +286,6 @@ function bringBlocksToLeftByOne() {
             if (i > 0) {
                 if (rows[i].children[j].style.backgroundColor == "red" && j == 0)return false;
                 if (rows[i].children[j + 1].style.backgroundColor == "red") {
-                    if (rows[i].children[j].style.backgroundColor == "green")return false;
                     rows[i].children[j].style.backgroundColor = "red";
                     rows[i].children[j + 1].style.backgroundColor = "black";
                 }
@@ -294,7 +299,10 @@ function bringBlocksToRightByOne() {
     var rows = document.getElementsByClassName("row");
 
     for (var i = 0; i < rows.length; i++) {
-        if (rows[i].children[9].style.backgroundColor == "red")return false;
+		if (rows[i].children[9].style.backgroundColor == "red"){
+			x-=1;
+			return false;
+		}
     }
 
     for (i = rows.length - 1; i >= 0; i--) {
@@ -302,7 +310,6 @@ function bringBlocksToRightByOne() {
             if (i > 0) {
                 if (rows[i].children[j].style.backgroundColor == "red" && j == 9)return false;
                 if (rows[i].children[j - 1].style.backgroundColor == "red") {
-                    if (rows[i].children[j].style.backgroundColor == "green")return false;
                     rows[i].children[j].style.backgroundColor = "red";
                     rows[i].children[j - 1].style.backgroundColor = "black";
                 }
@@ -340,34 +347,68 @@ document.addEventListener('keyup', function (event) {
 
 document.addEventListener('keydown', function (event) {
     if (event.keyCode == 38) {
-		startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
-        shapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
-
-
-
-        var rows = document.getElementsByClassName("row");
-        console.log('aa');
-        for (i = rows.length - 1; i >= 0; i--) {
-
-            for (j = rows[i].childElementCount - 1; j > 0; j--) {
-                if (i == x && j == y) {
-
-                            if (rows[y].children[x].style.backgroundColor == "red") {
-                                rows[y ].children[x ].style.backgroundColor = "black";
-                                //startWithCoordinate(shapeArray[0][0], y, x, "background-color:red");
-                            }
-
-                    console.log(shapeArray[shapeIndex][shapeState]);
-                }
-            }
-        }
-
-		startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
-		console.log(shapeArray[shapeIndex][shapeState]);
-
-
+		var tempSelection = d3.selectAll(".e")[0];
+		var counter = 0;
+		var nextShapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
+		for (i = 0; i < shapeArray[shapeIndex][nextShapeState].length; i++) {
+			if (!(x<0 || x>6)){
+				if (shapeArray[shapeIndex][shapeState][i] != 1 && shapeArray[shapeIndex][nextShapeState][i] == 1 && (tempSelection[(y + Math.floor(i / 4)) * lineLength + x + (i % 4)].style.backgroundColor != "black")) {
+					break;
+				}
+				else {
+					counter+=1;		
+				}
+			}
+		}
+		if (counter == 16){
+			startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
+			shapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
+			startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
+		}
     }
 });
+
+/*template for hold
+document.addEventListener('keydown', function(event){
+	if (event.keyCode == SPACEBAR NUMBER){
+		//valgymo ciklas
+		var tempSelection = d3.selectAll(".e")[0];
+		for (i = 0; i < shapeArray[shapeIndex][shapeState].length; i++) {
+			if (!(x<0 || x>6)){
+				if (shapeArray[shapeIndex][shapeState][i] != 1 && holdShape[i] == 1 && (tempSelection[(y + Math.floor(i / 4)) * lineLength + x + (i % 4)].style.backgroundColor != "black")) {
+					break;
+				}
+				else {
+					counter+=1;		
+				}
+			}
+		}
+		if (counter == 16){
+			tempFigure=shapeArray[shapeIndex][shapeState];
+			tempFigureState=shapeState;
+			tempFigureIndex=shapeIndex;
+			startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
+			startWithCoordinate(holdShapeState, y, x, "background-color:red");
+			shapeState = holdShapeState;
+			shapeIndex = holdShapeIndex;
+			holdShape = tempFigure;
+			holdShapeState = tempFigureState;
+			holdShapeIndex = tempFigureIndex;
+			
+			
+			
+		}
+		
+	}
+});
+
+
+
+
+
+
+*/
+
 
 function callback() {
     bringBlocksDownByOne();
