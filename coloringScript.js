@@ -8,6 +8,7 @@ var y = 0;
 var lines = 0;
 var score = 0;
 var speedLvl = 1;
+var isChanged;
 
 var holdShape = [0, 0, 1, 0,
     0, 0, 1, 0,
@@ -183,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         for (var j = 0; j < rows[i].childElementCount; j++) {
             rows[i].children[j].style.backgroundColor = "black";
         }
-
+    isChanged=false;
     shapeIndex = Math.floor(Math.random() * shapeArray.length);
     if (typeof nextShapeIndex !== 'undefined') {
         shapeIndex = nextShapeIndex;
@@ -282,6 +283,7 @@ function bringBlocksDownByOne() {
                 d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:blue");
             }
         }
+        isChanged=false;
     }
 
     if (lai == true) {
@@ -306,6 +308,7 @@ function bringBlocksDownByOne() {
             }
 
         }
+        isChanged=false;
     }
 }
 
@@ -414,7 +417,8 @@ function callback() {
         switch (e.keyCode) {
             case 13:
             {
-
+                if(isChanged){break;}
+                isChanged=true;
                 var tempSelection = d3.selectAll(".e")[0];
                 var counter = 0;
                 for (i = 0; i < shapeArray[shapeIndex][shapeState].length; i++) {

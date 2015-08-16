@@ -27,12 +27,12 @@ list-style:none;
 }
 
 .game-field{
-	margin-top:20px;
-	margin-bottom:20px;
+	margin-top:10px;
+	margin-bottom:10px;
 	margin-left:auto;
 	margin-right:auto;
 	width:440px;
-	height:620px;
+	height:615px;
 	border:1px solid white;
 	border-radius:10px;
 	background-color:rgba(120,120,120,0.8);
@@ -60,6 +60,7 @@ list-style:none;
 	font-size: 24px;
 }
 p{text-align:center;}
+
 #holdDiv{
 	background-color: blueviolet;
 	background-image: url(http://static.giantbomb.com/uploads/scale_small/5/56735/1280290-question_mark_block_fool_and_opera.gif);
