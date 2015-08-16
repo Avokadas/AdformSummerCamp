@@ -388,6 +388,8 @@ function GameEnd() {
         for (var j = 0; j < rows[1].childElementCount; j++) {
             if (rows[i].children[j].style.backgroundColor == "green") {
                 speed = 9999999;
+                alert("you lose !!!");
+				window.location.href = "index.html";
                 temp = true;
             }
 
@@ -494,8 +496,5 @@ function callback() {
 
     setTimeout(callback, speed);
 }
+
 setTimeout(callback, speed);
-
-
-
-
