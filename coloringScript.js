@@ -1,5 +1,6 @@
 var lineLength = 10;
 var shapeState;
+var nextShapeIndex;
 var shapeIndex;
 var speed = 400;
 var x = 0;
@@ -28,17 +29,20 @@ shapeArray = [
             0, 0, 0, 0,
             0, 0, 0, 0,
             0, 1, 1, 1,
-            0, 0, 1, 0],
+            0, 0, 1, 0
+        ],
         [
             0, 0, 0, 0,
             0, 0, 1, 0,
             0, 1, 1, 0,
-            0, 0, 1, 0],
+            0, 0, 1, 0
+        ],
         [
             0, 0, 0, 0,
             0, 0, 1, 0,
             0, 1, 1, 1,
-            0, 0, 0, 0],
+            0, 0, 0, 0
+        ],
         [
             0, 0, 0, 0,
             0, 0, 1, 0,
@@ -172,8 +176,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
     shapeIndex = Math.floor(Math.random() * shapeArray.length);
+    if(typeof nextShapeIndex !=='undefined'){
+        shapeIndex=nextShapeIndex;
+    }
+
     shapeState = 0;
     startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
+    nextShapeIndex=Math.floor(Math.random() * shapeArray.length);
+    for(var i=0;i<shapeArray[nextShapeIndex][0].length;i++){
+        if(shapeArray[nextShapeIndex][0][i]==1){
+            d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:purple");
+        }
+        else{
+            d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:blue");
+        }
+
+    }
 
 });
 
@@ -242,8 +260,17 @@ function bringBlocksDownByOne() {
                         shapeState = 0;
                     }
         deleteLine();
-        shapeIndex = Math.floor(Math.random() * shapeArray.length);
+        shapeIndex = nextShapeIndex;
         startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
+        nextShapeIndex=Math.floor(Math.random() * shapeArray.length);
+        for(var i=0;i<shapeArray[nextShapeIndex][0].length;i++){
+            if(shapeArray[nextShapeIndex][0][i]==1){
+                d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:purple");
+            }
+            else{
+                d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:blue");
+            }
+        }
     }
 
     if (lai == true) {
@@ -255,9 +282,19 @@ function bringBlocksDownByOne() {
         x = 0;
         y = 0;
         deleteLine();
-        shapeIndex = Math.floor(Math.random() * shapeArray.length);
+        shapeIndex = nextShapeIndex;
         startWithCoordinate(shapeArray[shapeIndex][0], y, x, "background-color:red");
         shapeState = 0;
+        nextShapeIndex=Math.floor(Math.random() * shapeArray.length);
+        for(var i=0;i<shapeArray[nextShapeIndex][0].length;i++){
+            if(shapeArray[nextShapeIndex][0][i]==1){
+                d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:purple");
+            }
+            else{
+                d3.select(d3.selectAll(".nextGrid")[0][i]).attr("style", "background-color:blue");
+            }
+
+        }
     }
 }
 
@@ -394,52 +431,8 @@ function callback() {
     };
 
     bringBlocksDownByOne();
-    document.onkeydown = function(e) {
-        switch (e.keyCode) {
-            case 37:
-                x -= 1;
-                bringBlocksToLeftByOne();
-                break;
-            case 38:
-                startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:black");
-                shapeState = (shapeState + 1) % shapeArray[shapeIndex].length;
 
-
-
-                var rows = document.getElementsByClassName("row");
-
-                for (i = rows.length - 1; i >= 0; i--) {
-
-                    for (j = rows[i].childElementCount - 1; j > 0; j--) {
-                        if (i == x && j == y) {
-
-                            if (rows[y].children[x].style.backgroundColor == "red") {
-                                rows[y ].children[x ].style.backgroundColor = "black";
-                                //startWithCoordinate(shapeArray[0][0], y, x, "background-color:red");
-                            }
-
-                            console.log(shapeArray[shapeIndex][shapeState]);
-                        }
-                    }
-                }
-
-                startWithCoordinate(shapeArray[shapeIndex][shapeState], y, x, "background-color:red");
-                console.log(shapeArray[shapeIndex][shapeState]);
-                break;
-            case 39:
-                x += 1;
-                bringBlocksToRightByOne();
-                break;
-            case 40:
-                speed = 40;
-                break;
-        }
-        GameEnd();
-
-
-    };
     updateResults();
-
 
     setTimeout(callback, speed);
 }
