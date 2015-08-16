@@ -281,12 +281,16 @@ function bringBlocksToLeftByOne() {
                 if (rows[i].children[j].style.backgroundColor == "red" && j == 0)return false;
                 if (rows[i].children[j + 1].style.backgroundColor == "red") {
                     if (rows[i].children[j].style.backgroundColor == "green")return false;
-                    rows[i].children[j].style.backgroundColor = "red";
-                    rows[i].children[j + 1].style.backgroundColor = "black";
                 }
             }
         }
     }
+    for (i = rows.length - 1; i >= 0; i--)
+        for (j = 0; j < rows[i].childElementCount - 1; j++)
+            if (i > 0) {
+                rows[i].children[j].style.backgroundColor = "red";
+                rows[i].children[j + 1].style.backgroundColor = "black";
+            }
 }
 
 function bringBlocksToRightByOne() {
