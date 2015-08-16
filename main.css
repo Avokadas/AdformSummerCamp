@@ -1,0 +1,25 @@
+.tetris {
+	margin: auto;
+	width: 20%;
+	min-width: 250px;
+}
+
+.tetris .spawningSpace {
+	visibility: hidden;
+	display: inline-block;
+}
+
+.score {
+/*	width: 100px;
+	height: 150px;
+	display: inline-block;
+	float: right;
+	margin-top: 12%; */
+	display: inline-block;
+}
+
+.score p {
+	margin: 2px;
+	font-family: "VT323";
+	font-size: 24px;
+}
