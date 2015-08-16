@@ -398,7 +398,7 @@ function GameEnd() {
 
         }
     if (temp) {
-        alert('you lose!');
+
     }
     temp = false;
 }
